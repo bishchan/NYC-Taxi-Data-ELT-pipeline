@@ -129,5 +129,4 @@ The visualizations allow users to:
 - Examine revenue and trip volume
 - Compare taxi activity across NYC boroughs
 
-This separation keeps **raw data, transformation logic, business logic, and reporting logic** organized into distinct layers.
 
