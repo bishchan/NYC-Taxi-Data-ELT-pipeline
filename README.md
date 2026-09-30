@@ -32,7 +32,7 @@ The project demonstrates a modern cloud data stack with separate layers for:
 
 ## 🏗️ Architecture
 
-<img width="1795" height="812" alt="NYC Taxi ELT Architecture" src="https://github.com/user-attachments/assets/ba49b0b5-ebbc-4d3e-b2c2-8e0589bfd650" />
+<img width="1736" height="664" alt="Screenshot 2026-09-30 at 4 01 31 PM" src="https://github.com/user-attachments/assets/4bb6df0f-04e4-44e2-9adc-78fd7e3c338b" />
 
 
 ## 🔄 Pipeline Flow
