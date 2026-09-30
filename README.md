@@ -41,7 +41,7 @@ The data flows through several layers, with each layer responsible for a specifi
 
 ---
 
-## Layered Data Modeling
+## 📊 Layered Data Modeling
 
 ### Source Layer
 
