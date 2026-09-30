@@ -34,46 +34,50 @@ The project demonstrates a modern cloud data stack with separate layers for:
 
 <img width="1795" height="812" alt="NYC Taxi ELT Architecture" src="https://github.com/user-attachments/assets/ba49b0b5-ebbc-4d3e-b2c2-8e0589bfd650" />
 
-### Pipeline Flow
 
+## 🔄 Pipeline Flow
 
-Layered Data Modeling
-Source Layer
+The data flows through several layers, with each layer responsible for a specific stage of the ELT process.
 
-The source layer contains the raw data loaded into BigQuery:
+---
 
-green_taxi
-yellow_taxi
-zones
-Staging Layer
+## 📊 Layered Data Modeling
 
-The staging models standardize and prepare the source data for downstream transformations:
+### 1. Source Layer
 
-stg_green_taxi
-stg_yellow_taxi
-stg_zones
+The **Source Layer** contains the raw data loaded into BigQuery.
+
+**Source Tables:**
+
+- `green_taxi`
+- `yellow_taxi`
+- `zones`
+
+---
+
+### 2. Staging Layer
+
+The **Staging Layer** standardizes and prepares the source data for downstream transformations.
+
+**Staging Models:**
+
+- `stg_green_taxi`
+- `stg_yellow_taxi`
+- `stg_zones`
 
 Typical staging operations include:
 
-Column renaming
-Data type standardization
-Data cleaning
-Source-specific transformations
-Mart Layer
+- Column renaming
+- Data type standardization
+- Data cleaning
+- Source-specific transformations
 
-The staging models are combined into:
+---
 
+### 3. Mart Layer
+
+The staging models are combined into a consolidated analytical model:
+
+```text
 mart_ny_taxi
-
-This layer applies the business logic required to create a consolidated NYC taxi dataset suitable for analysis.
-
-Reporting Layer
-
-The final reporting model:
-
-reporting_ny_taxi
-
-is designed specifically for downstream BI consumption and Tableau reporting.
-
-This separation keeps business logic and reporting logic distinct from the raw source data.
 
