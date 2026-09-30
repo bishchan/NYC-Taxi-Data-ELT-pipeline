@@ -110,6 +110,9 @@ The final `reporting_ny_taxi` model is connected to **Tableau** to provide an an
 
 The dashboard provides comparisons between **green and yellow taxi** services across New York City.
 
+<img width="2122" height="1170" alt="Screenshot 2026-09-30 at 4 08 30 PM" src="https://github.com/user-attachments/assets/6c1a669f-1a2c-4c30-a86f-d191fc13926f" />
+
+
 ### 📈 Key Metrics
 
 The dashboard includes:
@@ -127,3 +130,4 @@ The visualizations allow users to:
 - Compare taxi activity across NYC boroughs
 
 This separation keeps **raw data, transformation logic, business logic, and reporting logic** organized into distinct layers.
+
