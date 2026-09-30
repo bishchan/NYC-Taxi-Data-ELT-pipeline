@@ -61,7 +61,7 @@ The **Staging Layer** standardizes and prepares the source data for downstream t
 - `stg_yellow_taxi`
 - `stg_zones`
 
-Typical staging operations include:
+Staging operations include:
 
 - Column renaming
 - Data type standardization
@@ -70,7 +70,7 @@ Typical staging operations include:
 
 ### Mart Layer
 
-The staging models are combined into:
+The fact and dimension tables are combined:
 
 `mart_ny_taxi`
 
@@ -82,7 +82,7 @@ The final reporting model is:
 
 `reporting_ny_taxi`
 
-The **Reporting Layer** is designed specifically for downstream BI consumption and Tableau reporting.
+The **Reporting Layer** is optimized and designed specifically for downstream BI consumption and Tableau reporting.
 
 ## 🧪 Data Quality & Testing
 
@@ -96,11 +96,10 @@ Examples of implemented tests include:
 
 - Not-null checks
 - Unique key validation
-- Referential integrity
 - Accepted values
 - Relationship tests
 
-These tests help identify data quality issues early in the transformation process and create a controlled layer between raw warehouse data and BI reporting.
+These tests help identify data quality issues early in the transformation process and create a controlled layer between raw warehouse data and BI reporting. Currently it is only set to warn.
 
 ---
 
