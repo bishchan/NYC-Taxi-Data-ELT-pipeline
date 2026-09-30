@@ -1,0 +1,8 @@
+snapshots:
+  - name: snapshot_zones
+    relation: ref('mart_zones')
+    description:  snapshot for zones table
+    config:
+      strategy: check
+      unique_key: location_id
+      check_cols: all
