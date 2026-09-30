@@ -128,6 +128,6 @@ The visualizations allow users to:
 - Examine revenue and trip volume
 - Compare taxi activity across NYC boroughs
 
-p.s. Visualization and analysis is not the main goal of this project
+p.s. visualization and analysis is not the main goal of this project
 
 
