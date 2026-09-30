@@ -41,25 +41,21 @@ The data flows through several layers, with each layer responsible for a specifi
 
 ---
 
-## 📊 Layered Data Modeling
+## Layered Data Modeling
 
-### 1. Source Layer
+### Source Layer
 
-The **Source Layer** contains the raw data loaded into BigQuery.
-
-**Source Tables:**
+The **Source Layer** contains the raw data loaded into BigQuery:
 
 - `green_taxi`
 - `yellow_taxi`
 - `zones`
 
----
-
-### 2. Staging Layer
+### Staging Layer
 
 The **Staging Layer** standardizes and prepares the source data for downstream transformations.
 
-**Staging Models:**
+**Staging models:**
 
 - `stg_green_taxi`
 - `stg_yellow_taxi`
@@ -72,12 +68,20 @@ Typical staging operations include:
 - Data cleaning
 - Source-specific transformations
 
----
+### Mart Layer
 
-### 3. Mart Layer
+The staging models are combined into:
 
-The staging models are combined into a consolidated analytical model:
+`mart_ny_taxi`
 
-```text
-mart_ny_taxi
+The **Mart Layer** applies the business logic required to create a consolidated NYC taxi dataset suitable for analysis.
 
+### Reporting Layer
+
+The final reporting model is:
+
+`reporting_ny_taxi`
+
+The **Reporting Layer** is designed specifically for downstream BI consumption and Tableau reporting.
+
+This separation keeps **raw data, transformation logic, business logic, and reporting logic** organized into distinct layers.
