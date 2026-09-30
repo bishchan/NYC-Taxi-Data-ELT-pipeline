@@ -41,7 +41,7 @@ The data flows through several layers, with each layer responsible for a specifi
 
 ---
 
-## 📊 Layered Data Modeling
+## 🗂️ Layered Data Modeling
 
 ### Source Layer
 
@@ -84,7 +84,7 @@ The final reporting model is:
 
 The **Reporting Layer** is designed specifically for downstream BI consumption and Tableau reporting.
 
-# Data Quality & Testing
+## 🧪 Data Quality & Testing
 
 **dbt** is used not only for data transformation but also for **data quality validation**.
 
@@ -104,13 +104,13 @@ These tests help identify data quality issues early in the transformation proces
 
 ---
 
-# Tableau Dashboard
+## 📊 Tableau Dashboard
 
 The final `reporting_ny_taxi` model is connected to **Tableau** to provide an analytical view of NYC taxi activity.
 
 The dashboard provides comparisons between **green and yellow taxi** services across New York City.
 
-### Key Metrics
+### 📈 Key Metrics
 
 The dashboard includes:
 
