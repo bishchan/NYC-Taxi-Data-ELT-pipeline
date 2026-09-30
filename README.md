@@ -84,4 +84,46 @@ The final reporting model is:
 
 The **Reporting Layer** is designed specifically for downstream BI consumption and Tableau reporting.
 
+# Data Quality & Testing
+
+**dbt** is used not only for data transformation but also for **data quality validation**.
+
+Tests are applied to ensure that transformed datasets meet expected data quality requirements before being consumed by Tableau.
+
+### Data Quality Tests
+
+Examples of implemented tests include:
+
+- Not-null checks
+- Unique key validation
+- Referential integrity
+- Accepted values
+- Relationship tests
+
+These tests help identify data quality issues early in the transformation process and create a controlled layer between raw warehouse data and BI reporting.
+
+---
+
+# Tableau Dashboard
+
+The final `reporting_ny_taxi` model is connected to **Tableau** to provide an analytical view of NYC taxi activity.
+
+The dashboard provides comparisons between **green and yellow taxi** services across New York City.
+
+### Key Metrics
+
+The dashboard includes:
+
+- **Total Revenue**
+- **Total Trips**
+- **Average Trip Cost**
+- **Metrics by Borough**
+
+The visualizations allow users to:
+
+- Analyze taxi activity over time
+- Compare green and yellow taxi services
+- Examine revenue and trip volume
+- Compare taxi activity across NYC boroughs
+
 This separation keeps **raw data, transformation logic, business logic, and reporting logic** organized into distinct layers.
