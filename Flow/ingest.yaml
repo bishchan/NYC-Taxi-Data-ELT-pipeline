@@ -1,0 +1,37 @@
+id: 03b_ingest_one_month
+namespace: nyc_taxi
+
+description: |
+  Downloads one month of NYC Yellow/Green Taxi data and uploads it to GCS.
+
+inputs:
+  - id: year
+    type: INT 
+    description: "Year of the data to download"
+
+  - id: month
+    type: INT
+    description: "Month of the data to download"
+
+tasks:
+  - id: download_taxi_data
+    type: io.kestra.plugin.core.http.Download
+    uri: "https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_{{ inputs.year }}-{{ inputs.month < 10 ? '0' : '' }}{{ inputs.month }}.parquet"
+
+  - id: upload_taxi_to_gcs
+    type: io.kestra.plugin.gcp.gcs.Upload
+    from: "{{ outputs.download_taxi_data.uri }}"
+    to: "gs://{{ kv('GCP_BUCKET_NAME') }}/green_taxi/year={{ inputs.year }}/month={{ inputs.month < 10 ? '0' : '' }}{{ inputs.month }}/data.parquet"
+    serviceAccount: "{{ secret('GCP_SERVICE_ACCOUNT') }}"
+
+  - id: upload_taxi_to_bq
+    type: io.kestra.plugin.gcp.bigquery.LoadFromGcs
+    from: 
+      - "gs://{{ kv('GCP_BUCKET_NAME') }}/green_taxi/year={{ inputs.year }}/month={{ inputs.month < 10 ? '0' : '' }}{{ inputs.month }}/data.parquet"
+    serviceAccount: "{{ secret('GCP_SERVICE_ACCOUNT') }}"
+    destinationTable: "{{ kv('GCP_PROJECT_ID') }}.{{ kv('GCP_DATASET') }}.green_taxi"
+    format: PARQUET
+    writeDisposition: WRITE_APPEND
+    createDisposition: CREATE_IF_NEEDED
+    autodetect: true
+

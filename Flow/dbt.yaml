@@ -1,0 +1,45 @@
+id: dbt_transform
+namespace: nyc_taxi
+
+tasks:
+  - id: dbt_project
+    type: io.kestra.plugin.core.flow.WorkingDirectory
+    tasks:
+      - id: git_clone
+        type: io.kestra.plugin.git.Clone
+        url: https://github.com/bishchan/ny_taxi_transformation
+        branch: main
+
+      - id: upload
+        type: io.kestra.plugin.core.namespace.UploadFiles
+        namespace: "{{ flow.namespace }}"
+        files:
+          - "glob:**/dbt/**"
+
+
+      - id: dbt
+        type: io.kestra.plugin.dbt.cli.DbtCLI
+        inputFiles:
+          sa.json: "{{ secret('GCP_SERVICE_ACCOUNT') }}"
+        taskRunner:
+          type: io.kestra.plugin.scripts.runner.docker.Docker
+        containerImage: ghcr.io/kestra-io/dbt-bigquery:latest
+        profiles: |
+          default:
+            outputs:
+              dev:
+                type: bigquery
+                dataset: nyc_taxi_data
+                project: "{{kv('GCP_PROJECT_ID')}}"
+                keyfile: sa.json
+                location: us-west2
+                method: service-account
+                priority: interactive
+                threads: 16
+                timeout_seconds: 300
+                fixed_retries: 1
+            target: dev
+        commands:
+          - dbt deps
+          - dbt build
+

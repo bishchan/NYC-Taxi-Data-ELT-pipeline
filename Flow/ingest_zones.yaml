@@ -1,0 +1,30 @@
+id: ingest_zones
+namespace: nyc_taxi
+
+description: |
+  Downloads zones NYC Yellow Taxi data and uploads it to GCS.
+
+tasks:
+  - id: download_zones_data
+    type: io.kestra.plugin.core.http.Download
+    uri: "https://d37ci6vzurychx.cloudfront.net/misc/taxi_zone_lookup.csv"
+
+  - id: upload_zones_to_gcs
+    type: io.kestra.plugin.gcp.gcs.Upload
+    from: "{{ outputs.download_zones_data.uri }}"
+    to: "gs://{{ kv('GCP_BUCKET_NAME') }}/zones/data.csv"
+    serviceAccount: "{{ secret('GCP_SERVICE_ACCOUNT') }}"
+
+  - id: upload_zones_to_bq
+    type: io.kestra.plugin.gcp.bigquery.LoadFromGcs
+    from: 
+      - "gs://{{ kv('GCP_BUCKET_NAME') }}/zones/data.csv"
+    serviceAccount: "{{ secret('GCP_SERVICE_ACCOUNT') }}"
+    destinationTable: "{{ kv('GCP_PROJECT_ID') }}.{{ kv('GCP_DATASET') }}.zones"
+    format: CSV
+    csvOptions:
+      fieldDelimiter: ","
+      allowJaggedRows: true
+    writeDisposition: WRITE_TRUNCATE
+    createDisposition: CREATE_IF_NEEDED
+    autodetect: true 

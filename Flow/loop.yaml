@@ -1,0 +1,38 @@
+id: 03_gcp_bucket_ingest
+namespace: nyc_taxi
+
+description: |
+  Downloads NYC Yellow Taxi zone data and triggers a subflow per year/month to ingest trip data into GCS.
+
+inputs:
+  - id: year
+    type: ARRAY
+    itemType: INT
+    defaults: [2026]
+    description: "Year(s) of the data to download"
+
+  - id: month
+    type: ARRAY
+    itemType: INT
+    defaults: [1, 2, 3, 4]
+    description: "Month(s) of the data to download"
+    
+
+tasks:
+  - id: loop_years
+    type: io.kestra.plugin.core.flow.ForEach
+    values: "{{ inputs.year }}"
+    tasks:
+      - id: loop_months
+        type: io.kestra.plugin.core.flow.ForEach
+        values: "{{ inputs.month }}"
+        concurrencyLimit: 1
+        tasks:
+          - id: ingest_one_month
+            type: io.kestra.plugin.core.flow.Subflow
+            namespace: nyc_taxi
+            flowId: 03b_ingest_one_month
+            wait: true
+            inputs:
+              year: "{{ parents[0].taskrun.value }}"
+              month: "{{ taskrun.value }}"
