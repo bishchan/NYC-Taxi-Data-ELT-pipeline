@@ -86,7 +86,7 @@ The **Reporting Layer** is optimized and designed specifically for downstream BI
 
 ## 🧪 Data Quality & Testing
 
-**dbt** is used not only for data transformation but also for **data quality validation** and **snanpshot** of the zones as those change in the future.
+**dbt** is used not only for data transformation but also for **data quality validation** and **snapshot** of the zones table as those may change in the future.
 
 Tests are applied to ensure that transformed datasets meet expected data quality requirements before being consumed by Tableau.
 
